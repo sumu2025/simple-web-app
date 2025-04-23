@@ -18,6 +18,18 @@ const server = http.createServer((req, res) => {
                 res.end(data);
             }
         });
+    } else if (req.url.startsWith('/public/')) {
+        fs.readFile(path.join(__dirname, req.url), (err, data) => {
+            if (err) {
+                res.statusCode = 404;
+                res.setHeader('Content-Type', 'text/plain');
+                res.end('未找到文件');
+            } else {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'image/jpeg');
+                res.end(data);
+            }
+        });
     } else {
         res.statusCode = 404;
         res.setHeader('Content-Type', 'text/plain');
