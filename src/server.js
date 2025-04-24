@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
             }
         });
     } else if (req.url.startsWith('/public/')) {
-        fs.readFile(path.join(__dirname, req.url), (err, data) => {
+        fs.readFile(path.join(__dirname, '../public', req.url), (err, data) => {
             if (err) {
                 res.statusCode = 404;
                 res.setHeader('Content-Type', 'text/plain');
