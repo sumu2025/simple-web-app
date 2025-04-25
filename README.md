@@ -1,9 +1,34 @@
 # simple-web-app
 
 这是一个用于学习开发协作、git、docker、CI/CD等工具流程的简单项目。
+# simple-web-app
+// ... existing code ...
+
+## Git分支管理实践心得
+1. **分支工作流程**：
+   - 创建功能分支开发 (`git checkout -b feature/xxx`)
+   - 开发完成后提交更改 (`git add` + `git commit`)
+   - 切换回主分支合并 (`git checkout main` + `git merge feature/xxx`)
+   - 删除已完成分支 (`git branch -d feature/xxx`)
+
+2. **重要经验**：
+   - 所有修改都应通过分支完成
+   - 合并前确保所有更改已提交
+   - 文档更新也应遵循分支工作流
+   - 合并冲突需手动解决
+
+3. **常见问题**：
+   - 分支未合并时删除需用 `-D` 强制删除
+   - 文件移动/重命名需注意路径变化
+   - 文档更新易遗漏，建议单独创建分支
 
 ## 项目日志
+### 2025-04-25
+- 自动更新日志条目// ... existing code ...
 
+## 项目日志
+### 2025-04-25
+- 自动更新日志条目
 ### 2025-04-24
 - 初始化项目，创建了 `index.html`、`server.js` 和 `style.css` 文件。
 - 实现了基本的静态文件服务器，支持访问 `index.html` 和静态资源（如 CSS 和图片）。
