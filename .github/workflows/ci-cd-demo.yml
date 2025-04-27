@@ -1,9 +1,11 @@
 name: Full CI/CD Pipeline
 on:
   push:
-    branches: [docs/readme-update]
+    branches:
+      - docs/readme-update
   pull_request:
-    branches: [docs/readme-update]
+    branches:
+      - docs/readme-update
 
 jobs:
   build-test-deploy:
