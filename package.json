@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "mkdir -p dist && echo Hello World > dist/index.html"
+    "build": "mkdir -p dist && cp -r src/* dist/ && cp -r public dist/"
   },
   "devDependencies": {
     "jest": "^29.7.0"
