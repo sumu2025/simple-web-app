@@ -1,0 +1,12 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; /* 居中文本和内联元素 */
+}
+
+img {
+    display: block; /* 使图片成为块级元素 */
+    margin: 20px auto; /* 上下间距20px，左右自动（居中） */
+    max-width: 100%; /* 可以适当增加图片大小 */
+}

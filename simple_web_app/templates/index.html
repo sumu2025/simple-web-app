@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>简单 Web 应用</title>
+    <title>{{ page_title }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>欢迎！</h1>
-        <p>这是使用 Flask 和模板生成的页面。</p>
+        <h1>{{ heading }}</h1>
+        <p>{{ message }}</p>
         <img src="{{ url_for('static', filename='images/sample.jpg') }}" alt="示例图片">
     </div>
 </body>

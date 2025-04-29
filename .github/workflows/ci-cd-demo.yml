@@ -1,36 +1,46 @@
-name: Full CI/CD Pipeline
+name: Python CI Demo
+
 on:
   push:
-    branches:
-      - docs/readme-update
+    branches: [ main ] # 当代码推送到 main 分支时触发
   pull_request:
-    branches:
-      - docs/readme-update
+    branches: [ main ] # 当向 main 分支发起 Pull Request 时触发
 
 jobs:
-  build-test-deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest # 使用最新的 Ubuntu 运行环境
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
+    - uses: actions/checkout@v3 # 步骤1：检出代码
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        node-version: '18'
-        cache: 'npm'
-    
+        python-version: '3.10' # 指定您项目使用的 Python 版本
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-create: true # 让 Poetry 创建虚拟环境
+        virtualenvs-in-project: true # 在项目目录下创建 .venv
+        installer-parallel: true # 并行安装
+
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv # 缓存 .venv 目录
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        # 使用 poetry.lock 文件的哈希值作为缓存键的一部分
+
     - name: Install dependencies
-      run: npm ci
-      
-    - name: Run tests
-      run: npm test
-      
-    - name: Build project
-      run: npm run build
-      
-    - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/docs/readme-update'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' # 如果缓存未命中，则安装依赖
+      run: poetry install --no-interaction --no-root # 安装依赖，不安装项目本身
+
+    - name: Install project
+      run: poetry install --no-interaction # 安装项目本身及其依赖
+
+    - name: Run tests with pytest
+      run: |
+        source .venv/bin/activate # 激活虚拟环境
+        pytest tests/ # 运行 tests 目录下的所有测试

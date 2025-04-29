@@ -61,7 +61,7 @@ const server = http.createServer((req, res) => {
         });
     }
     // 处理静态文件请求
-    else if (req.url.startsWith('/public/')) {
+    else if (req.url.startsWith('/static/')) { // 修改此处为 /static/
         const filePath = path.join(__dirname, '..', req.url);
         console.log(`尝试读取文件: ${filePath}`);
         
